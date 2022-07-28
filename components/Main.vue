@@ -25,6 +25,11 @@
     @media (max-width: 768px) {
       flex-direction: column;
       align-items:center;
-    }         
+    }  
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top:15px;
+      margin-right: 15px;
+    }        
   }
 </style>

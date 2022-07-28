@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Article v-for="product,index of products" :key="index" :product="product" @delete="increaseCount(index)"/>
+    <Article v-for="product,index of products" :key="index" :product="product" @delete="deleteProduct(index)"/>
     <!-- В свойство key присваивать index не рекоммендуется, но в данном случае решил сделать так -->
   </main>
 </template>
@@ -21,11 +21,16 @@ import { mapGetters, mapMutations } from 'vuex'
     },
     methods:{
       ...mapMutations({
-        productDelete:"main/productDelete"
+        productDelete:"main/productDelete",
+        stayProduct:'main/productStatic'
       }),      
-      increaseCount(index){
+      deleteProduct(index){
         this.productDelete(index)
       }
+    },
+
+    mounted(){
+      this.stayProduct();
     }
   }
 
@@ -35,10 +40,12 @@ import { mapGetters, mapMutations } from 'vuex'
   main{
     display: flex;
     margin-left: 15px;
-    width: 100%;
+    width: 90%;
     flex-wrap: wrap;
     @media (max-width: 768px) {
-      justify-content: center;
-    }          
+      margin-left: 0;
+      width: 100%;
+
+    }             
   }
 </style>

@@ -2,23 +2,22 @@
   <form>
     <div >
       <label>Наименование товара <span class="cercle"> </span></label>
-      <input type="text" placeholder="Введите наименование товара" v-model="product.name" :class=" ` ${isValidateName ? 'validate' : ''}`">
-      <span :class=" `validate-text ${isValidateName ? 'validate-text-active' : ''}`">Поле является обязательным</span>
+      <input type="text" placeholder="Введите наименование товара" v-model="product.name" :class=" ` ${validate.name ? 'validate' : ''}`">
+      <span :class=" `validate-text ${validate.name ? 'validate-text-active' : ''}`">Поле является обязательным</span>
     </div>
     <div>
       <label>Описание товара <span class="cercle"></span></label>
-      <textarea class="description" type="text" placeholder="Введите описание товара" v-model="product.description" :class=" ` ${isValidateDescription ? 'validate' : ''}`"></textarea>
-      <span :class=" `validate-text ${isValidateDescription ? 'validate-text-active' : ''}`">Поле является обязательным</span>
+      <textarea class="description" type="text" placeholder="Введите описание товара" v-model="product.description"></textarea>
     </div>
     <div>
       <label>Ссылка на изображение товара <span class="cercle"></span></label>
-      <input type="text" placeholder="Введите ссылку" v-model="product.img" :class=" ` ${isValidateImg ? 'validate' : ''}`">
-      <span :class=" `validate-text ${isValidateImg ? 'validate-text-active' : ''}`">Поле является обязательным</span>
+      <input type="text" placeholder="Введите ссылку" v-model="product.img" :class=" ` ${validate.img  ? 'validate' : ''}`">
+      <span :class=" `validate-text ${validate.img ? 'validate-text-active' : ''}`">Поле является обязательным</span>
     </div>
     <div>
       <label>Цена товара <span class="cercle"></span></label>
-      <input type="text" placeholder="Введите цену" v-model="product.price" :class=" ` ${isValidatePrice ? 'validate' : ''}`">
-      <span :class=" `validate-text ${isValidatePrice ? 'validate-text-active' : ''}`">Поле является обязательным</span>
+      <input type="tel" placeholder="Введите цену" v-model="product.price" :class=" ` ${validate.price ? 'validate' : ''}`">
+      <span :class=" `validate-text ${validate.price ? 'validate-text-active' : ''}`">Поле является обязательным</span>
     </div>
 
     <button @click.prevent="createProduct(product), setMessage(true)" :disabled="!isValidateAll" :class=" ` ${isValidateAll ? 'active' : ''}`">Добавить товар</button>
@@ -39,31 +38,24 @@ import { mapMutations } from 'vuex'
           description:'',
           img:'Rectangle 31.png',
           price:''
+        },
+        validate:{
+          name:false,
+          img:false,
+          price:false
         }
-      }
+      }  
+    
     },
 
     computed:{
       isValidateAll(){
-         if(this.product.name !== "" && this.product.description !== "" && this.product.img !== "" && this.product.price !== "") {
+         if(this.product.name !== "" && this.product.img !== "" && this.product.price !== "") {
           return true
          } 
          return false 
       },
-      isValidateName(){
-        return this.product.name === ''
-      },
-      isValidateDescription(){
-        return this.product.description === ''
-      },
-      isValidateImg(){
-        return this.product.img === ''
-      },
-      isValidatePrice(){
-        return this.product.price === ''
-      },                  
     },
-
     methods:{
       ...mapMutations({
           createProduct: 'main/createProduct',
@@ -71,10 +63,32 @@ import { mapMutations } from 'vuex'
         }),
       setMessage(ctx){
         this.set(true);
-        setTimeout(() =>this.set(false), 1000);
+        setTimeout(() =>this.set(false), 2000);
       }
     },
+
+    watch:{
+      'product.name'(){
+        if(this.product.name === '') this.validate.name = true;
+        else{
+          this.validate.name = false
+        }
+      },
+      'product.img'(){
+        if(this.product.img === '') this.validate.img = true;
+        else{
+          this.validate.img = false
+        }
+      },
+      'product.price'(){
+        if(this.product.price === '') this.validate.price = true;
+        else{
+          this.validate.price = false
+        }
+      }            
+    }
   }
+
 </script>
 
 <style scoped lang="scss">
@@ -84,7 +98,11 @@ import { mapMutations } from 'vuex'
     border-radius: 4px;
     padding: 24px;
     width: 330px;
-
+    @media (max-width: 768px) {
+      
+      margin: 0 auto;
+      width: 100%;
+    }
       div+div{
         margin-top: 16px;
       }

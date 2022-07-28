@@ -4,7 +4,7 @@
     <div class="content">
       <h2 class="title">{{ product.name }}</h2>
       <p class="description">{{ product.description }}</p>
-      <span class="price">{{ product.price }}руб.</span>
+      <span class="price">{{` ${beautyPrice(product.price)}  руб.` }} </span>
     </div>
     <span class="trash"  @click="$emit('delete')"><i class="fas fa-trash-alt"></i></span>
   </article>
@@ -17,7 +17,12 @@
     props:{
       product:{
         type:Object,
+      }
       },
+      methods:{
+        beautyPrice(price){
+         return price.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
+        }
     }
   }
 </script>
@@ -28,6 +33,7 @@
     transform: scale(1.02);
   }
   article{
+    position:relative;
     width: 330px;
     display: flex;
     flex-direction: column;
@@ -54,7 +60,7 @@
       margin-right: 15px;
     }   
     @media (max-width: 590px) {
-     width: 90%;
+     width: 100%;
     }      
 
       img{
@@ -101,7 +107,7 @@
         top:-10px;
         transition:.3s all;
         position: absolute;
-        z-index: 900;
+        z-index: 10;
         font-size:18px;
         border-radius:5px;
         color:#fff;
@@ -109,6 +115,9 @@
         visibility:hidden;
           &:hover{
             transform:scale(1.2);
+            }
+            &:active{
+            transform:scale(1);
             }
         }
 
