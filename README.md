@@ -1,5 +1,7 @@
 # app
 
+Node Version 16.16.0
+
 ## Build Setup
 
 ```bash
