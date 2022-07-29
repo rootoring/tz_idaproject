@@ -16,7 +16,7 @@
     </div>
     <div>
       <label>Цена товара <span class="cercle"></span></label>
-      <input type="tel" placeholder="Введите цену" v-model="product.price" :class=" ` ${validate.price ? 'validate' : ''}`">
+      <input type="number" min="0" placeholder="Введите цену" v-model="product.price" :class=" ` ${validate.price ? 'validate' : ''}`">
       <span :class=" `validate-text ${validate.price ? 'validate-text-active' : ''}`">Поле является обязательным</span>
     </div>
 
