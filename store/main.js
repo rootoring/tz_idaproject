@@ -33,7 +33,8 @@ export const mutations = {
   	if(status === 'name') state.productList.sort(SortArray);
   },
   productStatic(state){ 
-  	state.productList  = JSON.parse( localStorage.getItem('test')) ;
+    if (JSON.parse( localStorage.getItem('test')) === null) {return 0}
+    state.productList  = JSON.parse( localStorage.getItem('test'))  	
   }
 
 }
