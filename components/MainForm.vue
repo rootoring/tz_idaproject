@@ -62,7 +62,7 @@ import { mapMutations } from 'vuex'
           set:"main/setMessage"
         }),
       setMessage(ctx){
-        this.set(true);
+        this.set(ctx);
         setTimeout(() =>this.set(false), 2000);
       }
     },
